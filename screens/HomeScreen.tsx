@@ -8,28 +8,49 @@ type MealSummary = {
     idMeal: string;
     strMeal: string;
     strMealThumb: string;
-    strArea: string;
-    strCountry: string;
+    strArea: string,
+    strCountry: string
 };
 
 type Status = 'idle' | 'loading' | 'success' | 'error';
 
+type State = {
+    status: Status;
+    items: MealSummary[];
+    message: string;
+};
+
+
 export default function HomeScreen() {
     const navigation = useNavigation<any>();
 
-    const [status, setStatus] = React.useState<Status>("idle");
-    const [meals, setMeals] = React.useState<MealSummary[]>([]);
+    const [state, setState] = React.useState<State>({
+        status: 'idle',
+        items: [],
+        message: '',
+    });
 
     const loadMeals = async () => {
         try {
-            setStatus("loading");
+            setState({
+                status: 'loading',
+                items: [],
+                message: 'Caricamento piatti',
+            });
 
             const data = await fetchItalianMeals();
-            setMeals(data);
-            setStatus("success");
-        } catch (error) {
-            setStatus("error");
 
+            setState({
+                status: 'success',
+                items: data,
+                message: '',
+            });
+        } catch (error) {
+            setState({
+                status: 'error',
+                items: [],
+                message: 'Errore nel caricamento dei piatti',
+            });
         }
     };
 
@@ -38,20 +59,20 @@ export default function HomeScreen() {
     }, []);
 
     // Visualizer del caricamento
-    if (status === 'loading') {
+    if (state.status === 'loading') {
         return (
             <View style={styles.center}>
                 <ActivityIndicator size="large" />
-                <Text>Caricamento piatti</Text>
+                <Text>{state.message}</Text>
             </View>
         );
     }
 
     // Messaggio di errore con bottone per ricaricare
-    if (status === 'error') {
+    if (state.status === 'error') {
         return (
             <View style={styles.center}>
-                <Text style={{ color: "red" }}>Errore nel caricare i piatti</Text>
+                <Text style={{ color: "red" }}>{state.message}</Text>
                 <Pressable onPress={loadMeals} style={styles.ErrorButton}>
                     <Text>Riprova</Text>
                 </Pressable>
@@ -60,7 +81,7 @@ export default function HomeScreen() {
     }
 
     // Successo ma array vuoto
-    if (status === 'success' && meals.length === 0) {
+    if (state.status === 'success' && state.items.length === 0) {
         return (
             <View style={styles.center}>
                 <Text>Nessun piatto italiano disponibile</Text>
@@ -70,11 +91,11 @@ export default function HomeScreen() {
     return (
         <View style={styles.container}>
             <FlatList
-                data={meals}
+                data={state.items}
                 keyExtractor={(item) => item.idMeal}
                 contentContainerStyle={{ padding: 12 }}
-                initialNumToRender={meals.length}
-                maxToRenderPerBatch={meals.length}
+                initialNumToRender={state.items.length}
+                maxToRenderPerBatch={state.items.length}
                 renderItem={({ item }) => (
                     <Pressable style={styles.card} onPress={() => navigation.navigate('MealDetails', { idMeal: item.idMeal, })}>
                         <Image source={{ uri: item.strMealThumb }} style={styles.image} />

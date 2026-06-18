@@ -2,6 +2,8 @@ import React from 'react';
 import { View, Text, StyleSheet, Pressable, FlatList, } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
+import { fetchMealById } from '../services/mealsApi';
+
 
 export default function DetailsScreen({ route }: any) {
     const navigation = useNavigation<any>();
