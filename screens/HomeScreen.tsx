@@ -1,8 +1,10 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, FlatList, ActivityIndicator, Pressable } from 'react-native';
+import FavoriteButton from '../components/ui/FavoriteButton';
 import { useNavigation } from '@react-navigation/native';
 
 import { fetchItalianMeals } from '../services/mealsApi';
+import { loadFavoriteIds, saveFavoriteIds } from '../services/storage';
 
 type MealSummary = {
     idMeal: string;
@@ -24,6 +26,7 @@ type State = {
 export default function HomeScreen() {
     const navigation = useNavigation<any>();
 
+    const [favoriteIds, setFavoriteIds] = React.useState<string[]>([]);
     const [state, setState] = React.useState<State>({
         status: 'idle',
         items: [],
@@ -56,7 +59,27 @@ export default function HomeScreen() {
 
     React.useEffect(() => {
         loadMeals();
+        async function loadFavorites() {
+            const ids = await loadFavoriteIds();
+            setFavoriteIds(ids);
+        }
+
+        loadFavorites();
     }, []);
+
+    const toggleFavorite = async (idMeal: string) => {
+        let updated: string[];
+
+        if (favoriteIds.includes(idMeal)) {
+            updated = favoriteIds.filter(id => id !== idMeal);
+        } else {
+            updated = [...favoriteIds, idMeal];
+        }
+
+        setFavoriteIds(updated);
+
+        await saveFavoriteIds(updated);
+    };
 
     // Visualizer del caricamento
     if (state.status === 'loading') {
@@ -97,8 +120,18 @@ export default function HomeScreen() {
                 initialNumToRender={state.items.length}
                 maxToRenderPerBatch={state.items.length}
                 renderItem={({ item }) => (
-                    <Pressable style={styles.card} onPress={() => navigation.navigate('MealDetails', { idMeal: item.idMeal, })}>
-                        <Image source={{ uri: item.strMealThumb }} style={styles.image} />
+                    <Pressable
+                        style={styles.card}
+                        onPress={() =>
+                            navigation.navigate('MealDetails', {
+                                idMeal: item.idMeal,})}>
+                        <Image source={{ uri: item.strMealThumb }} style={styles.image}/>
+                        <View style={styles.favoriteButton}>
+                            <FavoriteButton
+                                isFavorite={favoriteIds.includes(item.idMeal)}
+                                onPress={() => toggleFavorite(item.idMeal)}
+                            />
+                        </View>
                         <Text style={styles.title}>
                             {item.strMeal}
                         </Text>
@@ -124,6 +157,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#f5f5f5',
         borderRadius: 12,
         overflow: 'hidden',
+        position: 'relative',
     },
     image: {
         width: '100%',
@@ -142,5 +176,21 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         paddingVertical: 10,
         paddingHorizontal: 50,
-    }
+    },
+    favoriteButton: {
+        position: 'absolute',
+        top: 10,
+        right: 10,
+
+        width: 40,
+        height: 40,
+
+        borderRadius: 20,
+        backgroundColor: 'rgb(255,255,255)',
+
+        justifyContent: 'center',
+        alignItems: 'center',
+
+        zIndex: 10,
+    },
 });
