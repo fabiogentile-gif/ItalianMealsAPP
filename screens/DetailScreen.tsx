@@ -10,6 +10,8 @@ export default function DetailsScreen({ route }: any) {
 
     const { idMeal } = route.params;
 
+    if (!idMeal) return <Text style={{ padding: 16 }}>Invalid route param</Text>;   
+
 
     return (
         <View style={{ flex: 1, alignItems: 'flex-start', justifyContent: 'flex-start' }}>
@@ -17,7 +19,7 @@ export default function DetailsScreen({ route }: any) {
             <Text style={styles.Title}>Details</Text>
             <Text style={{ marginBottom: 20 }}>Id: {idMeal}</Text>
 
-            <Pressable style={styles.button} onPress={() => navigation.navigate('Home')}>
+            <Pressable style={styles.button} onPress={() => navigation.goBack()}>
                 <Text>Go Back</Text>
             </Pressable>
 

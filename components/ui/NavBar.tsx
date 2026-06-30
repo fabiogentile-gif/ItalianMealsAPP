@@ -12,13 +12,20 @@ export default function Navbar() {
             <Pressable
                 style={styles.button}
                 onPress={() => navigation.navigate('Home')}>
-                <Text style={styles.text}> <Ionicons name="home" size={30} /> Home</Text>
+                <View style={styles.tab}>
+                    <Ionicons name="home" size={30} />
+                    <Text style={styles.text}> Home</Text>
+                </View>
             </Pressable>
 
             <Pressable
                 style={styles.button}
                 onPress={() => navigation.navigate('Login')}>
-                <Text style={styles.text}><Ionicons name="person-circle-outline" size={30} /> Login</Text>
+                <View style={styles.tab}>
+                    <Ionicons name="person-circle-outline" size={30} />
+                    <Text style={styles.text}> Login</Text>
+                </View>
+
 
             </Pressable>
         </View>
@@ -43,4 +50,8 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: '500',
     },
+    tab: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    }
 });

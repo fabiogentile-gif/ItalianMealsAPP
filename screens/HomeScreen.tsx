@@ -2,9 +2,9 @@ import React from 'react';
 import { View, Text, StyleSheet, Image, FlatList, ActivityIndicator, Pressable } from 'react-native';
 import FavoriteButton from '../components/ui/FavoriteButton';
 import { useNavigation } from '@react-navigation/native';
+import { Ionicons } from '@react-native-vector-icons/ionicons';
 
 import { fetchItalianMeals } from '../services/mealsApi';
-import { loadFavoriteIds, saveFavoriteIds } from '../services/storage';
 import { useFavorites } from '../context/FavoritesContext';
 
 type MealSummary = {
@@ -27,12 +27,17 @@ type State = {
 export default function HomeScreen() {
     const navigation = useNavigation<any>();
 
-    const { favoriteIds, toggleFavorite } = useFavorites();
+    const { favoriteIds } = useFavorites();
+    const [showFavoritesOnly, setShowFavoritesOnly] = React.useState(false);
     const [state, setState] = React.useState<State>({
         status: 'idle',
         items: [],
         message: '',
     });
+
+    const displayedMeals = showFavoritesOnly
+        ? state.items.filter(meal => favoriteIds.includes(meal.idMeal))
+        : state.items;
 
     const loadMeals = async () => {
         try {
@@ -93,9 +98,41 @@ export default function HomeScreen() {
         );
     }
     return (
+
         <View style={styles.container}>
+            <View style={styles.filters}>
+                <Pressable onPress={() => setShowFavoritesOnly(false)}>
+                    <View style={styles.tab}>
+                        <Ionicons name="apps-outline" size={20} />
+                        <Text
+                            style={{
+                                fontSize: 16,
+                                fontWeight: '600',
+                                opacity: showFavoritesOnly ? 0.4 : 1,
+                                marginLeft: 6,
+                            }}
+                        >
+                            Tutti
+                        </Text>
+                    </View>
+                </Pressable>
+
+                <Pressable onPress={() => setShowFavoritesOnly(true)}>
+                    <View style={styles.tab}>
+                        <Ionicons name="heart" size={20} color="red" />
+                        <Text style={{
+                            fontSize: 16,
+                            fontWeight: '600',
+                            opacity: showFavoritesOnly ? 1 : 0.4
+                        }}>
+                            Preferiti
+                        </Text>
+                    </View>
+
+                </Pressable>
+            </View>
             <FlatList
-                data={state.items}
+                data={displayedMeals}
                 keyExtractor={(item) => item.idMeal}
                 contentContainerStyle={{ padding: 12 }}
                 initialNumToRender={state.items.length}
@@ -104,9 +141,7 @@ export default function HomeScreen() {
                     <Pressable
                         style={styles.card}
                         onPress={() =>
-                            navigation.navigate('MealDetails', {
-                                idMeal: item.idMeal,
-                            })}>
+                            navigation.navigate('MealDetails', {idMeal: item.idMeal})}>
                         <Image source={{ uri: item.strMealThumb }} style={styles.image} />
                         <View style={styles.favoriteButton}>
                             <FavoriteButton idMeal={item.idMeal} />
@@ -172,4 +207,15 @@ const styles = StyleSheet.create({
 
         zIndex: 10,
     },
+    filters: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        paddingVertical: 10,
+        borderBottomWidth: 1,
+        borderBottomColor: '#eee',
+    },
+    tab: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    }
 });
