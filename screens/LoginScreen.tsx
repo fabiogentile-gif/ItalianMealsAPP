@@ -1,24 +1,33 @@
-import React, { useState } from "react";
-import {
-    View,
-    Text,
-    TextInput,
-    StyleSheet,
-    Alert,
-    Pressable,
-} from "react-native";
+import { useState } from "react";
+import { Text, TextInput, Button, View, Pressable, StyleSheet } from "react-native";
 
-export default function LoginScreen() {
+
+import { validateLogin } from "../services/auth";
+import { useAuth } from "../context/UserContext";
+
+export default function LoginScreen({ navigation }: any) {
+    const { login } = useAuth();
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
 
     const handleLogin = () => {
-        if (!email || !password) {
-            Alert.alert("Errore", "Compila tutti i campi");
+        const user = validateLogin(email, password);
+
+        if (!user) {
+            setError("Email o password non validi");
             return;
         }
 
-        Alert.alert("Login", `Email: ${email}`);
+        login({
+            name: user.name,
+            email: user.email,
+            avatarUri: user.avatarUri,
+        });
+
+        setError("");
+        navigation.replace("Lista");
     };
 
     return (
@@ -28,16 +37,15 @@ export default function LoginScreen() {
             <TextInput
                 style={styles.input}
                 placeholder="Email"
-                placeholderTextColor="#999"
+                placeholderTextColor={"gray"}
                 value={email}
                 onChangeText={setEmail}
-                autoCapitalize="none"
             />
 
             <TextInput
                 style={styles.input}
                 placeholder="Password"
-                placeholderTextColor="#999"
+                placeholderTextColor={"gray"}
                 value={password}
                 onChangeText={setPassword}
                 secureTextEntry
@@ -46,10 +54,12 @@ export default function LoginScreen() {
             <Pressable style={styles.button} onPress={handleLogin}>
                 <Text style={styles.buttonText}>Accedi</Text>
             </Pressable>
+            
+            {error ? <Text style={{ color: "red" }}>{error}</Text> : null}
+
         </View>
     );
 }
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -67,7 +77,7 @@ const styles = StyleSheet.create({
         padding: 14,
         borderRadius: 10,
         marginBottom: 12,
-        color: "#fff",
+        color: "#000",
         borderWidth: 1,
         borderColor: "#334155",
     },

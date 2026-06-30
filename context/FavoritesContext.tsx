@@ -35,4 +35,5 @@ export function FavoritesProvider({ children }: { children: React.ReactNode }) {
     );
 }
 
+
 export const useFavorites = () => useContext(FavoritesContext);
