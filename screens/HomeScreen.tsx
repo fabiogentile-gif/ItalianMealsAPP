@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 
 import { fetchItalianMeals } from '../services/mealsApi';
 import { loadFavoriteIds, saveFavoriteIds } from '../services/storage';
+import { useFavorites } from '../context/FavoritesContext';
 
 type MealSummary = {
     idMeal: string;
@@ -26,7 +27,7 @@ type State = {
 export default function HomeScreen() {
     const navigation = useNavigation<any>();
 
-    const [favoriteIds, setFavoriteIds] = React.useState<string[]>([]);
+    const { favoriteIds, toggleFavorite } = useFavorites();
     const [state, setState] = React.useState<State>({
         status: 'idle',
         items: [],
@@ -59,27 +60,7 @@ export default function HomeScreen() {
 
     React.useEffect(() => {
         loadMeals();
-        async function loadFavorites() {
-            const ids = await loadFavoriteIds();
-            setFavoriteIds(ids);
-        }
-
-        loadFavorites();
     }, []);
-
-    const toggleFavorite = async (idMeal: string) => {
-        let updated: string[];
-
-        if (favoriteIds.includes(idMeal)) {
-            updated = favoriteIds.filter(id => id !== idMeal);
-        } else {
-            updated = [...favoriteIds, idMeal];
-        }
-
-        setFavoriteIds(updated);
-
-        await saveFavoriteIds(updated);
-    };
 
     // Visualizer del caricamento
     if (state.status === 'loading') {
@@ -124,13 +105,11 @@ export default function HomeScreen() {
                         style={styles.card}
                         onPress={() =>
                             navigation.navigate('MealDetails', {
-                                idMeal: item.idMeal,})}>
-                        <Image source={{ uri: item.strMealThumb }} style={styles.image}/>
+                                idMeal: item.idMeal,
+                            })}>
+                        <Image source={{ uri: item.strMealThumb }} style={styles.image} />
                         <View style={styles.favoriteButton}>
-                            <FavoriteButton
-                                isFavorite={favoriteIds.includes(item.idMeal)}
-                                onPress={() => toggleFavorite(item.idMeal)}
-                            />
+                            <FavoriteButton idMeal={item.idMeal} />
                         </View>
                         <Text style={styles.title}>
                             {item.strMeal}
