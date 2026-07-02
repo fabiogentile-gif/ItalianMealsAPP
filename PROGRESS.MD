@@ -9,6 +9,7 @@ Ogni schermata deve avere uno screenshot inserito qui sotto.
 Form controllato; accesso solo con credenziali mock valide; messaggio errore se credenziali sbagliate.
 
 **Screenshot:**
+
 ![Login form](./Screenshots/Login_Form.png)
 ![Login error](./Screenshots/Login_Errore.png)
 ![Login success](./Screenshots/SETTINGS.png)
@@ -20,6 +21,7 @@ Form controllato; accesso solo con credenziali mock valide; messaggio errore se 
 Dopo login: avatar rotondo (Image con borderRadius + overflow hidden) e nome utente loggato. Visibile in lista o impostazioni.
 
 **Screenshot:**
+
 ![Login success](./Screenshots/SETTINGS.png)
 
 ---
@@ -29,6 +31,7 @@ Dopo login: avatar rotondo (Image con borderRadius + overflow hidden) e nome ute
 FlatList da API italiana; stati: loading / error / success / empty.
 
 **Screenshot:**
+
 ![API success](./Screenshots/API_Funzionante.png)
 ![API error](./Screenshots/API_Errore.png)
 ![API loading](./Screenshots/API_Loading.png)
@@ -43,6 +46,7 @@ FlatList da API italiana; stati: loading / error / success / empty.
 Campo testo controllato che filtra la lista.
 
 **Screenshot:**
+
 [INSERIRE SCREENSHOT]
 
 **Note:**
@@ -55,6 +59,7 @@ Campo testo controllato che filtra la lista.
 Dati da lookup.php?i={idMeal}; immagine, titolo, istruzioni o ingredienti.
 
 **Screenshot:**
+
 [INSERIRE SCREENSHOT]
 
 **Note:**
@@ -67,6 +72,7 @@ Dati da lookup.php?i={idMeal}; immagine, titolo, istruzioni o ingredienti.
 Toggle preferito con persistenza AsyncStorage (app:v1:favs).
 
 **Screenshot:**
+
 ![Preferiti Tutti](./Screenshots/Preferiti_Tutti.png)
 ![Preferiti Filtro](./Screenshots/Preferiti_Solo.png)
 ![Preferiti Key](./Screenshots/Preferiti_Key.png)
@@ -78,6 +84,7 @@ Toggle preferito con persistenza AsyncStorage (app:v1:favs).
 Logout (ritorno login), avatar + nome utente, eventuale tema.
 
 **Screenshot:**
+
 ![Pagina Utente](./Screenshots/SETTINGS.png)
 
 **Note:**
@@ -90,6 +97,7 @@ Logout (ritorno login), avatar + nome utente, eventuale tema.
 Errore rete/API + pulsante Retry.
 
 **Screenshot:**
+
 ![API error](./Screenshots/API_Errore.png)
 
 ---
@@ -99,6 +107,7 @@ Errore rete/API + pulsante Retry.
 Almeno 2 accorgimenti (es. accessibilityLabel su pulsanti/card).
 
 **Screenshot:**
+
 [INSERIRE SCREENSHOT]
 
 **Note:**
@@ -111,6 +120,7 @@ Almeno 2 accorgimenti (es. accessibilityLabel su pulsanti/card).
 Dettaglio piatto aperto via URL (meal/:idMeal, lab 14). Terminale con comando exp:// riuscito.
 
 **Screenshot:**
+
 [INSERIRE SCREENSHOT]
 
 **Note:**
