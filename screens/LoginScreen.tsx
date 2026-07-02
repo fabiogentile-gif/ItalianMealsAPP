@@ -20,11 +20,10 @@ export default function LoginScreen({ navigation }: any) {
                 setError("Email o password non validi");
                 return;
             }
-
             await login(user);
 
             setError("");
-            navigation.navigate("Home");
+            navigation.navigate("Settings");
         } catch (err) {
             setError("Errore durante il login");
         }

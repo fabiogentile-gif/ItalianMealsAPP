@@ -7,7 +7,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from './screens/HomeScreen';
 import DetailsScreen from './screens/DetailScreen';
 import LoginScreen from './screens/LoginScreen';
-import UserProfileScreen from './screens/UserProfileScreen';
+import SettingsScreen from './screens/SettingsScreen';
 
 import Navbar from './components/ui/NavBar';
 
@@ -45,7 +45,7 @@ const linking = {
       Home: "Meals",
       Details: "Meal/:id",
       Login: "Login",
-      UserScreen: "Settings",
+      Settings: "Settings",
     }
   }
 };
@@ -64,7 +64,7 @@ export default function App() {
                 <Stack.Screen name="Home" component={HomeScreen} />
                 <Stack.Screen name="MealDetails" component={DetailsScreen} options={{ title: "Items" }} />
                 <Stack.Screen name="Login" component={LoginScreen} />
-                <Stack.Screen name="UserScreen" component={UserProfileScreen} />
+                <Stack.Screen name="Settings" component={SettingsScreen} />
               </Stack.Navigator>
 
               <Navbar />

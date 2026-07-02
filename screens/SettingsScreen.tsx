@@ -10,7 +10,7 @@ import Ionicons from '@react-native-vector-icons/ionicons';
 import { UserScreenStyles as styles } from "../theme/UserScreen.style";
 
 
-export default function UserProfileScreen() {
+export default function SettingsScreen() {
     const navigation = useNavigation<any>();
     const { user, logout } = useAuth();
 

@@ -39,7 +39,7 @@ export default function Navbar() {
             ) : (
                 <Pressable
                     style={styles.button}
-                    onPress={() => navigation.navigate("UserScreen")}
+                    onPress={() => navigation.navigate("Settings")}
                 >
                     <View style={styles.userBox}>
                         <Avatar uri={user.avatarUri} size={30} />
