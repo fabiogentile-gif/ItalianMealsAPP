@@ -1,75 +1,54 @@
-import React from 'react';
-import { useNavigation } from '@react-navigation/native';
+import React from "react";
+import { useNavigation } from "@react-navigation/native";
+import { View, Pressable, Text } from "react-native";
 
+import Ionicons from '@react-native-vector-icons/ionicons';
+import Avatar from "./Avatar";
 
-import { Ionicons } from '@react-native-vector-icons/ionicons';
-import { View, Pressable, Text, StyleSheet } from 'react-native';
-import Avatar from './Avatar';
-
-import { useAuth } from '../../context/UserContext';
-
+import { useAuth } from "../../context/UserContext";
+import { createNavbarStyles } from "../../theme/Navbar.styles";
+import { colors } from "../../theme/colors";
 
 export default function Navbar() {
     const navigation = useNavigation<any>();
-    const { loggedIn, user } = useAuth();
-
+    const { user } = useAuth();
+    const styles = createNavbarStyles();
 
     return (
         <View style={styles.container}>
             <Pressable
                 style={styles.button}
-                onPress={() => navigation.goBack()}>
+                onPress={() => navigation.reset({ index: 0, routes: [{ name: "Home" }] })}>
                 <View style={styles.tab}>
-                    <Ionicons name="home" size={30} />
-                    <Text style={styles.text}> Home</Text>
+                    <Ionicons name="home" size={24} color={colors.primary} />
+                    <Text style={[styles.text, { color: colors.primary }]}>
+                        Home
+                    </Text>
                 </View>
             </Pressable>
-            {!loggedIn ?
-                (<Pressable
+
+            {!user ? (
+                <Pressable
                     style={styles.button}
-                    onPress={() => navigation.navigate('Login')}>
-                    <View style={styles.tab}>
-                        <Ionicons name="person-circle-outline" size={30} />
-                        <Text style={styles.text}> Login</Text>
+                    onPress={() => navigation.navigate("Login")}>
+                    <Ionicons name="person-circle-outline" size={24} color={colors.muted} />
+                    <Text style={[styles.text, { color: colors.muted }]}>
+                        Login
+                    </Text>
+                </Pressable>
+            ) : (
+                <Pressable
+                    style={styles.button}
+                    onPress={() => navigation.navigate("UserScreen")}
+                >
+                    <View style={styles.userBox}>
+                        <Avatar uri={user.avatarUri} size={30} />
+                        <Text style={[styles.text, { color: colors.text }]}>
+                            {user.name}
+                        </Text>
                     </View>
                 </Pressable>
-                ) : (
-                    <Pressable
-                        style={styles.button}
-                        onPress={() => navigation.navigate('Login')}>
-                        <View style={{ flexDirection: "row", alignItems: "center", gap: 12 }}>
-                            <Avatar uri={user.avatarUri} />
-                            <Text>{user.name}</Text>
-                        </View>
-                    </Pressable>
-
-
-                )}
-
+            )}
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        height: 60,
-        flexDirection: 'row',
-        borderTopWidth: 1,
-        borderTopColor: '#ddd',
-        backgroundColor: '#fff',
-    },
-    button: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-
-    text: {
-        fontSize: 16,
-        fontWeight: '500',
-    },
-    tab: {
-        flexDirection: 'row',
-        alignItems: 'center',
-    }
-});

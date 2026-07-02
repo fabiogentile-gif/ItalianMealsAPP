@@ -1,3 +1,9 @@
+export interface AuthUser {
+  email: string;
+  name: string;
+  avatarUri: string;
+}
+
 export const MOCK_USERS = [
   {
     email: "mario.rossi@student.it",

@@ -12,22 +12,22 @@ export default function LoginScreen({ navigation }: any) {
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
 
-    const handleLogin = () => {
-        const user = validateLogin(email, password);
+    const handleLogin = async () => {
+        try {
+            const user = validateLogin(email, password);
 
-        if (!user) {
-            setError("Email o password non validi");
-            return;
+            if (!user) {
+                setError("Email o password non validi");
+                return;
+            }
+
+            await login(user);
+
+            setError("");
+            navigation.navigate("Home");
+        } catch (err) {
+            setError("Errore durante il login");
         }
-
-        login({
-            name: user.name,
-            email: user.email,
-            avatarUri: user.avatarUri,
-        });
-
-        setError("");
-        navigation.replace("Lista");
     };
 
     return (
@@ -54,8 +54,9 @@ export default function LoginScreen({ navigation }: any) {
             <Pressable style={styles.button} onPress={handleLogin}>
                 <Text style={styles.buttonText}>Accedi</Text>
             </Pressable>
-            
+
             {error ? <Text style={{ color: "red" }}>{error}</Text> : null}
+
 
         </View>
     );
