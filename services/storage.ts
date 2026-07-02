@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import type { AuthUser } from "../services/auth";
 
 const FAVORITES_KEY = 'app:v1:favs';
 

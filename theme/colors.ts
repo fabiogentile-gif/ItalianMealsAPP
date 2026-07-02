@@ -1,13 +1,13 @@
 export const colors = {
-  background: "#F8F5F0",      // crema leggero
-  surface: "#FFFFFF",         // card bianca pulita
-  surfaceAlt: "#F1E9DD",      // beige caldo
+  background: "#F8F5F0",
+  surface: "#FFFFFF",
+  surfaceAlt: "#F1E9DD",
 
-  text: "#2B2B2B",            // quasi nero soft
+  text: "#2B2B2B",
   muted: "#6B6B6B",
 
-  primary: "#C0392B",         // rosso vino / pomodoro
-  secondary: "#1E7A4C",       // verde basilico
+  primary: "#C0392B",
+  secondary: "#1E7A4C",
   border: "#E6DDCF",
 
   error: "#D64541",

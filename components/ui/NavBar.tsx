@@ -27,6 +27,7 @@ export default function Navbar() {
                 </View>
             </Pressable>
 
+            {/* USER PROFILE */}
             {!user ? (
                 <Pressable
                     style={styles.button}

@@ -10,30 +10,16 @@ import { useFavorites } from '../context/FavoritesContext';
 import { createSharedStyles } from "../theme/styles";
 import { createHomeStyles } from "../theme/HomeScreen.styles";
 
-type MealSummary = {
-    idMeal: string;
-    strMeal: string;
-    strMealThumb: string;
-    strArea: string,
-    strCountry: string
-};
-
-type Status = 'idle' | 'loading' | 'success' | 'error';
-
-type State = {
-    status: Status;
-    items: MealSummary[];
-    message: string;
-};
+import { State } from '../types/meal';
 
 const sharedstyles = createSharedStyles();
 const styles = createHomeStyles();
-
 
 export default function HomeScreen() {
     const navigation = useNavigation<any>();
 
     const { favoriteIds } = useFavorites();
+
     const [showFavoritesOnly, setShowFavoritesOnly] = React.useState(false);
     const [state, setState] = React.useState<State>({
         status: 'idle',
@@ -41,9 +27,11 @@ export default function HomeScreen() {
         message: '',
     });
 
+    //Mostra solo i preferiti
     const displayedMeals = showFavoritesOnly
         ? state.items.filter(meal => favoriteIds.includes(meal.idMeal))
         : state.items;
+
 
     const loadMeals = async () => {
         try {
@@ -105,35 +93,28 @@ export default function HomeScreen() {
     return (
 
         <View style={styles.container}>
+
+            {/* FILTRI */}
             <View style={styles.filters}>
                 <Pressable onPress={() => setShowFavoritesOnly(false)}>
                     <View style={[styles.tab, !showFavoritesOnly && styles.tabActive]}>
                         <Ionicons name="apps-outline" size={20} color="white" />
-                        <Text
-                            style={[
-                                styles.tabText,
-                                showFavoritesOnly && styles.tabInactive,
-                            ]}
-                        >
+                        <Text style={[styles.tabText, showFavoritesOnly && styles.tabInactive,]}>
                             Tutti
                         </Text>
                     </View>
                 </Pressable>
-
                 <Pressable onPress={() => setShowFavoritesOnly(true)}>
                     <View style={[styles.tab, showFavoritesOnly && styles.tabActive]}>
                         <Ionicons name="heart" size={20} color="red" />
-                        <Text
-                            style={[
-                                styles.tabText,
-                                !showFavoritesOnly && styles.tabInactive,
-                            ]}
-                        >
+                        <Text style={[styles.tabText, !showFavoritesOnly && styles.tabInactive,]}>
                             Preferiti
                         </Text>
                     </View>
                 </Pressable>
             </View>
+
+            {/* LISTA PIATTI */}
             <FlatList
                 data={displayedMeals}
                 keyExtractor={(item) => item.idMeal}
@@ -141,20 +122,12 @@ export default function HomeScreen() {
                 showsVerticalScrollIndicator={false}
                 initialNumToRender={8}
                 maxToRenderPerBatch={8}
-                windowSize={5}
                 renderItem={({ item }) => (
-                    <Pressable
-                        style={styles.card}
-                        onPress={() =>
-                            navigation.navigate("MealDetails", { idMeal: item.idMeal })
-                        }
-                    >
+                    <Pressable style={styles.card} onPress={() => navigation.navigate("MealDetails", { idMeal: item.idMeal })}>
                         <Image source={{ uri: item.strMealThumb }} style={styles.image} />
-
                         <View style={styles.favoriteButton}>
                             <FavoriteButton idMeal={item.idMeal} />
                         </View>
-
                         <Text style={styles.title} numberOfLines={1}>
                             {item.strMeal}
                         </Text>
