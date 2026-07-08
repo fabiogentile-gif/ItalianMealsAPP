@@ -37,3 +37,26 @@ Uno screenshot per lab **13–22** (come avete fatto per i lab **01–11** alla 
 | mario.rossi@student.it    | React2026!  |
 | giulia.bianchi@student.it | Expo2026!   |
 | luca.verdi@student.it     | Mobile2026! |
+
+
+---
+
+## CHECKLIST
+
+## Checklist checkpoint
+
+- [x] Repository su GitHub (tuo account)
+- [x] App avvia con `npx expo start` senza errori
+- [x] Login funziona con i 3 utenti mock
+- [x] Dopo login: avatar rotondo + nome utente visibili (lab 07)
+- [x] Lista piatti da API italiana con stati `loading` / `error` / `success`
+- [x] Dettaglio con endpoint `lookup.php?i={idMeal}`
+- [x] Ricerca sulla lista
+- [x] Preferiti salvati in AsyncStorage (`app:v1:favs`)
+- [x] Navigazione Lista → Dettaglio → Impostazioni + logout
+- [x] Deep linking (lab 14): URL `exp://` apre dettaglio con `idMeal` valido
+- [x] Retry su errore API
+- [x] Stato globale (Context / Zustand) per sessione o preferiti
+- [x] Almeno 2 accorgimenti di accessibilità
+- [x] File `PROGRESS.md` con tutti gli screenshot richiesti
+- [x] Google Doc con screenshot lab 13–22 + link inserito in `PROGRESS.md`

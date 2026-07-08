@@ -1,25 +1,19 @@
-## README - Consegna finale (OBBLIGATORIO)
-
-Questo README deve essere presente nella root del repository GitHub ed è **obbligatorio per la consegna finale**.
-
----
 
 ## Nome progetto e autore
 
 - **Nome progetto:** Italian Meals App
-- **Autore:** <Fabio Gentile>
+- **Autore:** Fabio Gentile
 
 ---
 
 ## Installazione e avvio
 
 ```bash
-git clone <https://github.com/fabiogentile-gif/ItalianMealsAPP.git>
-cd <nome-cartella>
+git clone https://github.com/fabiogentile-gif/ItalianMealsAPP.git
+cd ItaliansMeals
 npm install
 npx expo start
-
----
+```
 
 ## Prerequisiti
 
@@ -49,5 +43,39 @@ npx expo start
 
 ## Deep Linking
 
-### Path configurato
-meal/:idMeal
+```bash
+npx uri-scheme open "exp://<YOUR_IP>:8081/--/meal/52772" --android
+```
+
+- http://localhost:8081/MealDetails?idMeal=52961
+
+---
+
+## Google Doc (lab 13–22)
+
+**Link:** https://docs.google.com/document/d/1RXdJJVh4GlMYAngYksM9MLcUvdgkYoO3lizdgMCK36Y/edit?tab=t.twgpr3gmlcqs#heading=h.c3r0kqx87q1r
+
+---
+
+## Stato globale 6 Motivazione
+
+### Gestione tramite:
+Context API 
+
+### Motivazione:
+- evita prop drilling
+- centralizza utente e preferiti
+- struttura più semplice per React Native
+
+---
+
+## Edge case gestiti
+
+- errore rete API -> messaggio + Retry
+- login fallito -> errore senza crash
+- lista vuota -> UI fallback
+- preferiti e userdata persistiti con AsyncStorage
+- deep link invalido -> gestione errore sicura
+
+---
+
