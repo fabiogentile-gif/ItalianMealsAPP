@@ -43,8 +43,6 @@ Uno screenshot per lab **13–22** (come avete fatto per i lab **01–11** alla 
 
 ## CHECKLIST
 
-## Checklist checkpoint
-
 - [x] Repository su GitHub (tuo account)
 - [x] App avvia con `npx expo start` senza errori
 - [x] Login funziona con i 3 utenti mock
