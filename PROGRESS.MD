@@ -1,127 +1,39 @@
-# PROGRESS
+# Progress - Italian Meals App
 
-Ogni schermata deve avere uno screenshot inserito qui sotto.
+**Studente:** Fabio Gentile 
+**Repo:** https://github.com/fabiogentile-gif/ItalianMealsAPP 
+**Ultimo aggiornamento:** 2026-07-08
 
----
+## Schermate implementate
 
-## 1. Login
-**Descrizione richiesta:**
-Form controllato; accesso solo con credenziali mock valide; messaggio errore se credenziali sbagliate.
+| Schermata      | Stato   | Screenshot                                          |
+| -------------- | ------- | --------------------------------------------------- |
+| Login          | ✅  | ![Login](./Screenshots/Login_Form.png)           |
+| Header profilo |✅| ![Profilo](./Screenshots/SETTINGS.png)       |
+| Lista piatti   |  ✅    | ![Lista](./Screenshots/API_Funzionante.png)            |
+| Ricerca        |     🚧    | ![Ricerca]()        |
+| Dettaglio      |     ✅    | ![Dettaglio](./Screenshots/Dettagli.png)      |
+| Preferiti      |     ✅    | ![Preferiti](./Screenshots/Preferiti_Solo.png)   |
+| Impostazioni   |     ✅    | ![Impostazioni](./Screenshots/SETTINGS.png) |
+| Errore + Retry |    ✅     | ![Errore](./Screenshots/API_Errore.png)          |
+| Deep link      |    ✅     | ![Deep link](./Screenshots/DeepLink.png)    |
 
-**Screenshot:**
+## Google Doc (lab 13–22)
 
-![Login form](./Screenshots/Login_Form.png)
-![Login error](./Screenshots/Login_Errore.png)
-![Login success](./Screenshots/SETTINGS.png)
+**Link:** https://docs.google.com/document/d/1RXdJJVh4GlMYAngYksM9MLcUvdgkYoO3lizdgMCK36Y/edit?tab=t.twgpr3gmlcqs#heading=h.c3r0kqx87q1r
 
----
+Uno screenshot per lab **13–22** (come avete fatto per i lab **01–11** alla verifica intermedia).
 
-## 2. Header profilo
-**Descrizione richiesta:**
-Dopo login: avatar rotondo (Image con borderRadius + overflow hidden) e nome utente loggato. Visibile in lista o impostazioni.
+## Note
 
-**Screenshot:**
+- Cosa manca per la consegna finale:
+- Scelta stato globale:
+- Deep link: http://localhost:8081/MealDetails?idMeal=52961
 
-![Login success](./Screenshots/SETTINGS.png)
+## Utenti mock (login di test)
 
----
-
-## 3. Lista piatti
-**Descrizione richiesta:**
-FlatList da API italiana; stati: loading / error / success / empty.
-
-**Screenshot:**
-
-![API success](./Screenshots/API_Funzionante.png)
-![API error](./Screenshots/API_Errore.png)
-![API loading](./Screenshots/API_Loading.png)
-
-**Note:**
-- [ c'è anche in caso *empty* ma non sono riuscito a replicarlo ]
-
----
-
-## 4. Ricerca / filtro
-**Descrizione richiesta:**
-Campo testo controllato che filtra la lista.
-
-**Screenshot:**
-
-[INSERIRE SCREENSHOT]
-
-**Note:**
-- [ ]
-
----
-
-## 5. Dettaglio
-**Descrizione richiesta:**
-Dati da lookup.php?i={idMeal}; immagine, titolo, istruzioni o ingredienti.
-
-**Screenshot:**
-
-[INSERIRE SCREENSHOT]
-
-**Note:**
-- [ ]
-
----
-
-## 6. Preferiti
-**Descrizione richiesta:**
-Toggle preferito con persistenza AsyncStorage (app:v1:favs).
-
-**Screenshot:**
-
-![Preferiti Tutti](./Screenshots/Preferiti_Tutti.png)
-![Preferiti Filtro](./Screenshots/Preferiti_Solo.png)
-![Preferiti Key](./Screenshots/Preferiti_Key.png)
-
----
-
-## 7. Impostazioni
-**Descrizione richiesta:**
-Logout (ritorno login), avatar + nome utente, eventuale tema.
-
-**Screenshot:**
-
-![Pagina Utente](./Screenshots/SETTINGS.png)
-
-**Note:**
-- [  Premere sul bottone *Logout* riporta alla pagina di login eliminando la sessione dell'utente ]
-
----
-
-## 8. Stato errore
-**Descrizione richiesta:**
-Errore rete/API + pulsante Retry.
-
-**Screenshot:**
-
-![API error](./Screenshots/API_Errore.png)
-
----
-
-## 9. Accessibilità
-**Descrizione richiesta:**
-Almeno 2 accorgimenti (es. accessibilityLabel su pulsanti/card).
-
-**Screenshot:**
-
-[INSERIRE SCREENSHOT]
-
-**Note:**
-- [ ]
-
----
-
-## 10. Deep link
-**Descrizione richiesta:**
-Dettaglio piatto aperto via URL (meal/:idMeal, lab 14). Terminale con comando exp:// riuscito.
-
-**Screenshot:**
-
-[INSERIRE SCREENSHOT]
-
-**Note:**
-- [ se *http://localhost:8081/MealDetails?idMeal=52961* si cambia l'id dall'url in qualcosa che non esiste restiuisce errore (non ho potuto fare il comando siccome non ho l'emulatore) ]
+| Email                     | Password    |
+| ------------------------- | ----------- |
+| mario.rossi@student.it    | React2026!  |
+| giulia.bianchi@student.it | Expo2026!   |
+| luca.verdi@student.it     | Mobile2026! |
