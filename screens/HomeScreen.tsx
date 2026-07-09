@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 
-import { View, Text, Image, FlatList, ActivityIndicator, Pressable, TextInput, StyleSheet } from 'react-native';
+import { View, Text, Image, FlatList, ActivityIndicator, Pressable, TextInput, Animated } from 'react-native';
 import FavoriteButton from '../components/ui/FavoriteButton';
 
 import { fetchItalianMeals } from '../services/mealsApi';
@@ -17,10 +17,13 @@ import { State } from '../types/meal';
 const sharedstyles = createSharedStyles();
 const styles = createHomeStyles();
 
+
 export default function HomeScreen() {
     const navigation = useNavigation<any>();
+    const fadeAnim = React.useRef(new Animated.Value(0)).current;
 
     const { favoriteIds } = useFavorites();
+
 
     const [showFavoritesOnly, setShowFavoritesOnly] = React.useState(false);
     const [search, setSearch] = React.useState("");
@@ -50,6 +53,7 @@ export default function HomeScreen() {
                 items: [],
                 message: 'Caricamento piatti',
             });
+            fadeAnim.setValue(0);
             const data = await fetchItalianMeals();
 
             setState({
@@ -57,6 +61,13 @@ export default function HomeScreen() {
                 items: data,
                 message: '',
             });
+            //Animazione lista
+            Animated.timing(fadeAnim, {
+                toValue: 1,
+                duration: 500,
+                useNativeDriver: true,
+            }).start();
+
         } catch (error) {
             setState({
                 status: 'error',
@@ -123,7 +134,7 @@ export default function HomeScreen() {
                     </View>
                 </Pressable>
             </View>
-
+            {/* BARRA DI RICERCA */}
             <TextInput
                 style={styles.searchInput}
                 placeholder="Cerca un piatto..."
@@ -133,33 +144,35 @@ export default function HomeScreen() {
                 accessibilityLabel="Campo di ricerca dei piatti"
                 accessibilityHint="Scrivi il nome di un piatto per filtrare la lista"
             />
-
             {/* LISTA PIATTI */}
-            <FlatList
-                data={displayedMeals}
-                keyExtractor={(item) => item.idMeal}
-                contentContainerStyle={sharedstyles.flatListContent}
-                showsVerticalScrollIndicator={false}
-                initialNumToRender={8}
-                maxToRenderPerBatch={8}
-                renderItem={({ item }) => (
-                    <Pressable
-                        style={styles.card}
-                        accessibilityRole="button"
-                        accessibilityLabel={`Apri il dettaglio del piatto ${item.strMeal}`}
-                        onPress={() => navigation.navigate("MealDetails", { idMeal: item.idMeal })}
-                    >
+            <Animated.View style={{ flex: 1, opacity: fadeAnim, }}>
+                <FlatList
+                    data={displayedMeals}
+                    keyExtractor={(item) => item.idMeal}
+                    contentContainerStyle={sharedstyles.flatListContent}
+                    showsVerticalScrollIndicator={false}
+                    initialNumToRender={8}
+                    maxToRenderPerBatch={8}
+                    renderItem={({ item }) => (
+                        <Pressable
+                            style={({ pressed }) => [styles.card, pressed && { opacity: 0.8, transform: [{ scale: 0.98 }], },]}
+                            accessibilityRole="button"
+                            accessibilityLabel={`Apri il dettaglio del piatto ${item.strMeal}`}
+                            onPress={() => navigation.navigate("MealDetails", { idMeal: item.idMeal })}
+                        >
 
-                        <Image source={{ uri: item.strMealThumb }} style={styles.image} accessibilityLabel={`Immagine del piatto ${item.strMeal}`} />
-                        <View style={styles.favoriteButton}>
-                            <FavoriteButton idMeal={item.idMeal} />
-                        </View>
-                        <Text style={styles.title} numberOfLines={1}>
-                            {item.strMeal}
-                        </Text>
-                    </Pressable>
-                )}
-            />
+                            <Image source={{ uri: item.strMealThumb }} style={styles.image} accessibilityLabel={`Immagine del piatto ${item.strMeal}`} />
+                            <View style={styles.favoriteButton}>
+                                <FavoriteButton idMeal={item.idMeal} />
+                            </View>
+                            <Text style={styles.title} numberOfLines={1}>
+                                {item.strMeal}
+                            </Text>
+                        </Pressable>
+                    )}
+                />
+            </Animated.View>
+
         </View>
     );
 }

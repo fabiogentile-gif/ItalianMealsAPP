@@ -11,7 +11,7 @@
 | Login          | ✅  | ![Login](./Screenshots/Login_Form.png)           |
 | Header profilo |✅| ![Profilo](./Screenshots/SETTINGS.png)       |
 | Lista piatti   |  ✅    | ![Lista](./Screenshots/API_Funzionante.png)            |
-| Ricerca        |     🚧    | ![Ricerca]()        |
+| Ricerca        |    ✅    | ![Ricerca](./Screenshots/Search.png)        |
 | Dettaglio      |     ✅    | ![Dettaglio](./Screenshots/Dettagli.png)      |
 | Preferiti      |     ✅    | ![Preferiti](./Screenshots/Preferiti_Solo.png)   |
 | Impostazioni   |     ✅    | ![Impostazioni](./Screenshots/SETTINGS.png) |

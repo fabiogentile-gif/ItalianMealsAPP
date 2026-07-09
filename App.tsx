@@ -15,29 +15,7 @@ import { FavoritesProvider } from './context/FavoritesContext';
 import { AuthProvider } from './context/UserContext';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-
 const Stack = createNativeStackNavigator();
-
-// const linking = {
-//   prefixes: [Linking.createURL("/"), "italianmeals://"],
-//   config: {
-//     screens: {
-//       Auth: {
-//         screens: {
-//           Login: "login"
-//         },
-//       },
-//       App: {
-//         screens: {
-//           Home: "meals",
-//           Details: "meal/:id",
-//         }
-//       }
-
-//     },
-//   },
-// };
-
 const linking = {
   prefixes: [Linking.createURL("/"), "italianmeals://"],
   config: {
@@ -49,9 +27,6 @@ const linking = {
     }
   }
 };
-
-
-
 
 export default function App() {
   return (

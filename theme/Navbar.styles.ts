@@ -10,7 +10,6 @@ export const createNavbarStyles = () =>
       borderTopWidth: 1,
       borderTopColor: colors.border,
 
-      // ombra soft
       shadowColor: "#000",
       shadowOpacity: 0.05,
       shadowRadius: 10,
