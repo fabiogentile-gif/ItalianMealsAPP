@@ -98,4 +98,27 @@ export const createHomeStyles = () =>
       alignItems: "center",
       zIndex: 10,
     },
+    searchInput: {
+      backgroundColor: colors.surface,
+      marginHorizontal: spacing.md,
+      marginTop: spacing.md,
+      marginBottom: spacing.sm,
+
+      paddingHorizontal: spacing.md,
+      paddingVertical: 12,
+
+      borderRadius: spacing.md,
+      borderWidth: 1,
+      borderColor: colors.border,
+
+      color: colors.text,
+      fontSize: 16,
+
+      shadowColor: "#000",
+      shadowOpacity: 0.08,
+      shadowRadius: 4,
+      shadowOffset: { width: 0, height: 1 },
+
+      elevation: 2,
+    },
   });

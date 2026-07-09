@@ -1,14 +1,16 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, FlatList, ActivityIndicator, Pressable } from 'react-native';
-import FavoriteButton from '../components/ui/FavoriteButton';
 import { useNavigation } from '@react-navigation/native';
-import Ionicons from '@react-native-vector-icons/ionicons';
+
+import { View, Text, Image, FlatList, ActivityIndicator, Pressable, TextInput, StyleSheet } from 'react-native';
+import FavoriteButton from '../components/ui/FavoriteButton';
 
 import { fetchItalianMeals } from '../services/mealsApi';
 import { useFavorites } from '../context/FavoritesContext';
 
+import Ionicons from '@react-native-vector-icons/ionicons';
 import { createSharedStyles } from "../theme/styles";
 import { createHomeStyles } from "../theme/HomeScreen.styles";
+import { colors } from '../theme/colors';
 
 import { State } from '../types/meal';
 
@@ -21,16 +23,24 @@ export default function HomeScreen() {
     const { favoriteIds } = useFavorites();
 
     const [showFavoritesOnly, setShowFavoritesOnly] = React.useState(false);
+    const [search, setSearch] = React.useState("");
     const [state, setState] = React.useState<State>({
         status: 'idle',
         items: [],
         message: '',
     });
 
-    //Mostra solo i preferiti
-    const displayedMeals = showFavoritesOnly
-        ? state.items.filter(meal => favoriteIds.includes(meal.idMeal))
-        : state.items;
+    //Mostra i preferiti e la ricerca
+    const displayedMeals = state.items.filter((meal) => {
+        const matchesFavorites =
+            !showFavoritesOnly || favoriteIds.includes(meal.idMeal);
+
+        const matchesSearch = meal.strMeal
+            .toLowerCase()
+            .includes(search.toLowerCase());
+
+        return matchesFavorites && matchesSearch;
+    });
 
 
     const loadMeals = async () => {
@@ -96,7 +106,7 @@ export default function HomeScreen() {
 
             {/* FILTRI */}
             <View style={styles.filters}>
-                <Pressable onPress={() => setShowFavoritesOnly(false)}>
+                <Pressable onPress={() => setShowFavoritesOnly(false)} accessibilityRole="button" accessibilityLabel="Mostra tutti i piatti">
                     <View style={[styles.tab, !showFavoritesOnly && styles.tabActive]}>
                         <Ionicons name="apps-outline" size={20} color="white" />
                         <Text style={[styles.tabText, showFavoritesOnly && styles.tabInactive,]}>
@@ -104,7 +114,7 @@ export default function HomeScreen() {
                         </Text>
                     </View>
                 </Pressable>
-                <Pressable onPress={() => setShowFavoritesOnly(true)}>
+                <Pressable onPress={() => setShowFavoritesOnly(true)} accessibilityRole="button" accessibilityLabel="Mostra solo i piatti preferiti">
                     <View style={[styles.tab, showFavoritesOnly && styles.tabActive]}>
                         <Ionicons name="heart" size={20} color="red" />
                         <Text style={[styles.tabText, !showFavoritesOnly && styles.tabInactive,]}>
@@ -113,6 +123,16 @@ export default function HomeScreen() {
                     </View>
                 </Pressable>
             </View>
+
+            <TextInput
+                style={styles.searchInput}
+                placeholder="Cerca un piatto..."
+                placeholderTextColor={colors.muted}
+                value={search}
+                onChangeText={setSearch}
+                accessibilityLabel="Campo di ricerca dei piatti"
+                accessibilityHint="Scrivi il nome di un piatto per filtrare la lista"
+            />
 
             {/* LISTA PIATTI */}
             <FlatList
@@ -123,8 +143,14 @@ export default function HomeScreen() {
                 initialNumToRender={8}
                 maxToRenderPerBatch={8}
                 renderItem={({ item }) => (
-                    <Pressable style={styles.card} onPress={() => navigation.navigate("MealDetails", { idMeal: item.idMeal })}>
-                        <Image source={{ uri: item.strMealThumb }} style={styles.image} />
+                    <Pressable
+                        style={styles.card}
+                        accessibilityRole="button"
+                        accessibilityLabel={`Apri il dettaglio del piatto ${item.strMeal}`}
+                        onPress={() => navigation.navigate("MealDetails", { idMeal: item.idMeal })}
+                    >
+
+                        <Image source={{ uri: item.strMealThumb }} style={styles.image} accessibilityLabel={`Immagine del piatto ${item.strMeal}`} />
                         <View style={styles.favoriteButton}>
                             <FavoriteButton idMeal={item.idMeal} />
                         </View>
