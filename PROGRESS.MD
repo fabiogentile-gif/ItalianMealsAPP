@@ -18,11 +18,11 @@
 | Errore + Retry |    ✅     | ![Errore](./Screenshots/API_Errore.png)          |
 | Deep link      |    ✅     | ![Deep link](./Screenshots/DeepLink.png)    |
 
-## Google Doc (lab 13–22)
+## Google Doc (lab 13–19)
 
 **Link:** https://docs.google.com/document/d/1RXdJJVh4GlMYAngYksM9MLcUvdgkYoO3lizdgMCK36Y/edit?tab=t.twgpr3gmlcqs#heading=h.c3r0kqx87q1r
 
-Uno screenshot per lab **13–22** (come avete fatto per i lab **01–11** alla verifica intermedia).
+Uno screenshot per lab **13–19** (come avete fatto per i lab **01–11** alla verifica intermedia).
 
 ## Note
 
@@ -57,4 +57,4 @@ Uno screenshot per lab **13–22** (come avete fatto per i lab **01–11** alla 
 - [x] Stato globale (Context / Zustand) per sessione o preferiti
 - [x] Almeno 2 accorgimenti di accessibilità
 - [x] File `PROGRESS.md` con tutti gli screenshot richiesti
-- [x] Google Doc con screenshot lab 13–22 + link inserito in `PROGRESS.md`
+- [x] Google Doc con screenshot lab 13–19 + link inserito in `PROGRESS.md`

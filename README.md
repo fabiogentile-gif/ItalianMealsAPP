@@ -51,7 +51,7 @@ npx uri-scheme open "exp://<YOUR_IP>:8081/--/meal/52772" --android
 
 ---
 
-## Google Doc (lab 13–22)
+## Google Doc (lab 13–19)
 
 **Link:** https://docs.google.com/document/d/1RXdJJVh4GlMYAngYksM9MLcUvdgkYoO3lizdgMCK36Y/edit?tab=t.twgpr3gmlcqs#heading=h.c3r0kqx87q1r
 
