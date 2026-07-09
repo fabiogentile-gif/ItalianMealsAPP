@@ -47,7 +47,7 @@ npx expo start
 npx uri-scheme open "exp://<YOUR_IP>:8081/--/meal/52772" --android
 ```
 
-- http://localhost:8081/MealDetails?idMeal=52961
+- http://localhost:8081/Meal/52961
 
 ---
 

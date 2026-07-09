@@ -21,7 +21,7 @@ const linking = {
   config: {
     screens: {
       Home: "Meals",
-      Details: "Meal/:id",
+      MealDetails: "Meal/:id",
       Login: "Login",
       Settings: "Settings",
     }

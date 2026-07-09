@@ -21,7 +21,7 @@ import { styles } from "../theme/Details.styles";
 
 export default function DetailsScreen({ route }: any) {
     const navigation = useNavigation<any>();
-    const { idMeal } = route.params;
+    const { id } = route.params;
 
     const [meal, setMeal] = useState<DetailMeal | null>(null);
     const [state, setState] = React.useState<State>({
@@ -38,7 +38,7 @@ export default function DetailsScreen({ route }: any) {
                 message: "Caricamento piatti",
             });
 
-            const data = await fetchMealById(idMeal);
+            const data = await fetchMealById(id);
 
             setMeal(data);
 
@@ -58,8 +58,8 @@ export default function DetailsScreen({ route }: any) {
     };
 
     useEffect(() => {
-        if (idMeal) loadDetails();
-    }, [idMeal]);
+        if (id) loadDetails();
+    }, [id]);
 
     const getIngredients = () => {
         if (!meal) return [];
@@ -78,7 +78,7 @@ export default function DetailsScreen({ route }: any) {
         return ingredients;
     };
 
-    if (!idMeal) {
+    if (!id) {
         return (
             <View style={styles.errorContainer}>
                 <Text>Id non valido</Text>

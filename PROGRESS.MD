@@ -28,7 +28,7 @@ Uno screenshot per lab **13–19** (come avete fatto per i lab **01–11** alla 
 
 - Cosa manca per la consegna finale:
 - Scelta stato globale:
-- Deep link: http://localhost:8081/MealDetails?idMeal=52961
+- Deep link: http://localhost:8081/Meal/52961
 
 ## Utenti mock (login di test)
 

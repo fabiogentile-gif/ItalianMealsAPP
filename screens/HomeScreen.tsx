@@ -158,7 +158,7 @@ export default function HomeScreen() {
                             style={({ pressed }) => [styles.card, pressed && { opacity: 0.8, transform: [{ scale: 0.98 }], },]}
                             accessibilityRole="button"
                             accessibilityLabel={`Apri il dettaglio del piatto ${item.strMeal}`}
-                            onPress={() => navigation.navigate("MealDetails", { idMeal: item.idMeal })}
+                            onPress={() => navigation.navigate("MealDetails", { id: item.idMeal })}
                         >
 
                             <Image source={{ uri: item.strMealThumb }} style={styles.image} accessibilityLabel={`Immagine del piatto ${item.strMeal}`} />
